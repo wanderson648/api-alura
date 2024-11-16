@@ -1,11 +1,13 @@
 package med.voll.api.model.paciente;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import med.voll.api.endereco.Endereco;
+import med.voll.api.model.paciente.dto.DadosAtualizacaoPaciente;
 import med.voll.api.model.paciente.dto.PacienteDTO;
 
 @Getter
@@ -28,12 +30,29 @@ public class Paciente {
     @Embedded
     private Endereco endereco;
 
-    public Paciente(PacienteDTO dados) {
-        this.nome = dados.nome();
-        this.email = dados.email();
-        this.telefone = dados.telefone();
-        this.cpf = dados.cpf();
-        this.endereco = new Endereco(dados.endereco());
+    private Boolean ativo;
+
+    public Paciente(PacienteDTO dto) {
+        this.ativo = true;
+        this.nome = dto.nome();
+        this.email = dto.email();
+        this.telefone = dto.telefone();
+        this.cpf = dto.cpf();
+        this.endereco = new Endereco(dto.endereco());
     }
 
+    public void atualizarInformacoes(DadosAtualizacaoPaciente dados) {
+        if (dados.nome() != null)
+            this.nome = dados.nome();
+
+        if (dados.telefone() != null)
+            this.telefone = dados.telefone();
+
+        if (dados.endereco() != null)
+            endereco.atualizarInformacoes(dados.endereco());
+    }
+
+    public void inativar() {
+        this.ativo = false;
+    }
 }
