@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.PastOrPresent;
 import med.voll.api.model.medico.Medico;
+import med.voll.api.model.medico.dto.AtualizaMedicoDTO;
 import med.voll.api.model.medico.dto.DadosListagemMedicosDTO;
 import med.voll.api.model.medico.dto.MedicoDTO;
 import med.voll.api.repository.MedicoRepository;
@@ -29,7 +30,20 @@ public class MedicoController {
     @GetMapping
     public Page<DadosListagemMedicosDTO> lsitar(
             @PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-        return repository.findAll(paginacao).map(DadosListagemMedicosDTO::new);
+        return repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedicosDTO::new);
     }
 
+    @PutMapping
+    @Transactional
+    public void atualizar(@RequestBody @Valid AtualizaMedicoDTO dto) {
+        var medico = repository.getReferenceById(dto.id());
+        medico.atualizaInformacoes(dto);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void excluir(@PathVariable Long id) {
+        var medico = repository.getReferenceById(id);
+        medico.excluir();
+    }
 }

@@ -1,8 +1,11 @@
 package med.voll.api.model.medico;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.*;
+import med.voll.api.endereco.DadosEndereco;
 import med.voll.api.endereco.Endereco;
+import med.voll.api.model.medico.dto.AtualizaMedicoDTO;
 import med.voll.api.model.medico.dto.MedicoDTO;
 
 @Getter
@@ -28,12 +31,32 @@ public class Medico {
     @Embedded
     private Endereco endereco;
 
+    private Boolean ativo;
+
     public Medico(MedicoDTO dados) {
+        this.ativo = true;
         this.nome = dados.nome();
         this.email = dados.email();
         this.telefone = dados.telefone();
         this.crm = dados.crm();
         this.especialidade = dados.especialidade();
         this.endereco = new Endereco(dados.endereco());
+    }
+
+    public void atualizaInformacoes(AtualizaMedicoDTO dto) {
+        if(dto.nome() != null) {
+            this.nome = dto.nome();
+        }
+        if(dto.telefone() != null) {
+            this.telefone = dto.telefone();
+        }
+        if(dto.endereco() != null) {
+            this.endereco.atualizarInformacoes(dto.endereco());
+        }
+
+    }
+
+    public void excluir() {
+        this.ativo = false;
     }
 }
