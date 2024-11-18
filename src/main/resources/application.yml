@@ -12,3 +12,7 @@ spring:
     username: root
     password:
 
+api:
+  security:
+    token:
+      secret: ${JWT_SECRET:12345678}
