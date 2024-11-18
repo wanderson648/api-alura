@@ -1,10 +1,10 @@
-package med.voll.api.model.medico;
+package med.voll.api.domain.medico;
 
 import jakarta.persistence.*;
 import lombok.*;
-import med.voll.api.endereco.Endereco;
-import med.voll.api.model.medico.dto.AtualizaMedicoDTO;
-import med.voll.api.model.medico.dto.MedicoDTO;
+import med.voll.api.domain.endereco.Endereco;
+import med.voll.api.domain.medico.dto.AtualizaMedicoDTO;
+import med.voll.api.domain.medico.dto.MedicoDTO;
 
 @Getter
 @Setter

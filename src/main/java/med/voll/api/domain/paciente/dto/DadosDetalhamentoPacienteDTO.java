@@ -1,7 +1,7 @@
-package med.voll.api.model.paciente.dto;
+package med.voll.api.domain.paciente.dto;
 
-import med.voll.api.endereco.Endereco;
-import med.voll.api.model.paciente.Paciente;
+import med.voll.api.domain.endereco.Endereco;
+import med.voll.api.domain.paciente.Paciente;
 
 public record DadosDetalhamentoPacienteDTO(
         String nome,
