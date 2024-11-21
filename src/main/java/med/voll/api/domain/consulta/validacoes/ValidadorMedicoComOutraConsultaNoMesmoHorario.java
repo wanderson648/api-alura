@@ -5,8 +5,10 @@ import med.voll.api.domain.consulta.dto.DadosAgendamentoConsultaDTO;
 import med.voll.api.repository.ConsultaRepository;
 import med.voll.api.repository.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-public class ValidadorMedicoComOutraConsultaNoMesmoHorario {
+@Component
+public class ValidadorMedicoComOutraConsultaNoMesmoHorario implements ValidadorAgendamentoDeConsulta {
 
     @Autowired
     private ConsultaRepository repository;
